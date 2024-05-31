@@ -1,0 +1,13 @@
+[core]
+	repositoryformatversion = 0
+	filemode = false
+	bare = false
+	logallrefupdates = true
+	symlinks = false
+	ignorecase = true
+[remote "vi"]
+	url = https://ai98:2e6ca0e30a402e6c56636387429483eb@gitee.com/ai98/vi.git
+	fetch = +refs/heads/*:refs/remotes/vi/*
+[branch "master"]
+	remote = vi
+	merge = refs/heads/master

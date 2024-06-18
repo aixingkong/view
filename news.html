@@ -46,7 +46,7 @@
     <div id="page" class="container">
         <div class="column1">
             <div class="title">
-                <h2><strong>bust</strong></h2>
+                <h2><strong>burst</strong></h2>
             </div>
             <div id = "burst">
                 <p></p>
@@ -111,6 +111,24 @@
         return decodedText;
     }
 
+    function formatText(text) {
+        // 以换行符分割文本
+        const lines = text.split('\n');
+        // 遍历每一行文本
+        for (let i = 0; i < lines.length; i++) {
+            // 如果以"# "开头，则替换为<h3>标记
+            if (lines[i].startsWith('# ')) {
+                lines[i] = '<span class="title2"><strong>' + lines[i].substring(2) + '</strong></span>';
+            }
+        }
+        // 重新拼接文本
+        let formattedText = lines.join('\n');
+        // 使用正则表达式替换换行符为<br>
+        formattedText = formattedText.replace(/\n/g, '<br>');
+        // 使用正则表达式替换加粗语法为<span><strong></strong></span>
+        formattedText = formattedText.replace(/\*\*(.*?)\*\*/g, '<span><strong>$1</strong></span>');
+        return formattedText;
+    }
 
     // 获取当前网页的URL
     let currentURL = window.location.href;
@@ -143,16 +161,16 @@
         .then(data => {
             // 将 JSON 数据加载到网页中
             document.getElementById('news').innerHTML = `
-                    <p>${decodeText(data.news).replace(/\n/g, '<br>')}</p>
+                    <p>${formatText(decodeText(data.news))}</p>
                 `;
             document.getElementById('burst').innerHTML = `
-                    <p>${decodeText(data.burst).replace(/\n/g, '<br>')}</p>
+                    <p>${formatText(decodeText(data.burst))}</p>
                 `;
             document.getElementById('hot').innerHTML = `
-                    <p>${decodeText(data.hot).replace(/\n/g, '<br>')}</p>
+                    <p>${formatText(decodeText(data.hot))}</p>
                 `;
             document.getElementById('policy').innerHTML = `
-                    <p>${decodeText(data.policy).replace(/\n/g, '<br>').replace(/\*\*(.*?)\*\*/g, '<span><strong>$1</strong></span>')}</p>
+                    <p>${formatText(decodeText(data.policy))}</p>
                 `;
         })
         .catch(error => console.error('Error loading JSON file:', error));

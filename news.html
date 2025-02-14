@@ -84,6 +84,19 @@
 
 </div>
 
+<script>
+    // 获取当前日期
+    const today = new Date();
+    const year = String(today.getFullYear()).slice(-2);
+    const month = String(today.getMonth() + 1).padStart(2, '0'); // 月份从 0 开始，需要加 1
+    // const day = String(today.getDate()).padStart(2, '0');
+    // 构建文件名
+    const filename = `report_${year}${month}.xlsx`;
+    // 获取链接元素
+    const link = document.getElementById('report');
+    // 修改链接的 href 属性
+    link.href = filename;
+</script>
 
 <script>
     function toggleFullScreen() {
@@ -195,19 +208,6 @@
 </script>
 
 
-<script>
-    // 获取当前日期
-    const today = new Date();
-    const year = String(today.getFullYear()).slice(-2);
-    const month = String(today.getMonth() + 1).padStart(2, '0'); // 月份从 0 开始，需要加 1
-    // const day = String(today.getDate()).padStart(2, '0');
-    // 构建文件名
-    const filename = `report_${year}${month}.xlsx`;
-    // 获取链接元素
-    const link = document.getElementById('report');
-    // 修改链接的 href 属性
-    link.href = filename;
-</script>
 
 </body>
 </html>

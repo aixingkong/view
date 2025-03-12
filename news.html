@@ -1,0 +1,213 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Cache-Control" content="max-age=60, must-revalidate">
+    <title>news</title>
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <style>
+        body {
+            height: 200%;
+        }
+    </style>
+    <link href="html/default.css?version=1.2" rel="stylesheet" type="text/css" media="all" />
+    <link href="html/fonts.css" rel="stylesheet" type="text/css" media="all" />
+
+</head>
+<body>
+
+<div id="wrapper">
+    <div id="header-wrapper">
+        <div id="menu" class="container">
+            <ul id="liList">
+                <li><a accesskey="1" onclick="toggleFullScreen()">全屏</a></li>
+                <li><a href="news_senti.html" accesskey="17" title="">senti</a></li>
+                <li><a href="index_cn.html" accesskey="7" title="">rsi_cn</a></li>
+                <li><a href="report.xlsx" id="report" accesskey="2" title="">report</a></li>
+                <li><a href="index_score.html" accesskey="3" title="">score</a></li>
+                <li><a href="index_base.html" accesskey="4" title="">base</a></li>
+                <li><a href="index_adv.html" accesskey="5" title="">adv</a></li>
+                <li><a href="index_fut.html" accesskey="6" title="">fut</a></li>
+                <li><a href="hk_score.html" accesskey="7" title="">hk_score</a></li>
+                <li><a href="hk_base.html" accesskey="8" title="">hk_base</a></li>
+                <li><a href="hk_adv.html" accesskey="9" title="">hk_adv</a></li>
+                <li><a href="g_ixic_jp225.html" accesskey="10" title="">ixic_jp</a></li>
+                <li><a href="fund_list.xlsx" accesskey="11" title="">fund</a></li>
+                <li><a href="kong_list.xlsx" accesskey="12" title="">stock</a></li>
+                <li><a href="financial.html" accesskey="14" title="">fin</a></li>
+                <li><a href="shadow_sh.html" accesskey="15" title="">shadow_sh</a></li>
+                <li><a href="shadow_sz.html" accesskey="16" title="">shadow_sz</a></li>
+                <li><a href="global.html" accesskey="1" title="">global</a></li>
+                <li><a href="index.html" accesskey="18" title="">index</a></li>
+
+            </ul>
+        </div>
+    </div>
+    <div id="page" class="container">
+        <div class="column1">
+            <div class="title">
+                <h2><strong>burst</strong></h2>
+            </div>
+            <div id = "burst">
+                <p></p>
+            </div>
+        </div>
+
+        <div class="column2">
+            <div class="title">
+                <h2><strong>policy</strong></h2>
+            </div>
+            <div id = "policy">
+                <p></p>
+
+            </div>
+        </div>
+        <div class="column3">
+            <div class="title">
+                <h2><strong>news</strong></h2>
+            </div>
+            <div id = "news">
+                <p> </p>
+            </div>
+        </div>
+
+        <div class="column4">
+            <div class="title">
+                <h2><strong>hot</strong></h2>
+            </div>
+            <div id ="hot">
+                <p></p>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+<script>
+    // 获取当前日期
+    const today = new Date();
+    const year = String(today.getFullYear()).slice(-2);
+    const month = String(today.getMonth() + 1).padStart(2, '0'); // 月份从 0 开始，需要加 1
+    // const day = String(today.getDate()).padStart(2, '0');
+    // 构建文件名
+    const filename = `report_${year}${month}.xlsx`;
+    // 获取链接元素
+    const link = document.getElementById('report');
+    // 修改链接的 href 属性
+    link.href = filename;
+</script>
+
+<script>
+    function toggleFullScreen() {
+        var doc = window.document;
+        var docEl = doc.documentElement;
+
+        var requestFullScreen = docEl.requestFullscreen || docEl.mozRequestFullScreen || docEl.webkitRequestFullScreen || docEl.msRequestFullscreen;
+        var cancelFullScreen = doc.exitFullscreen || doc.mozCancelFullScreen || doc.webkitExitFullscreen || doc.msExitFullscreen;
+
+        if (!doc.fullscreenElement && !doc.mozFullScreenElement && !doc.webkitFullscreenElement && !doc.msFullscreenElement) {
+            requestFullScreen.call(docEl);
+        } else {
+            cancelFullScreen.call(doc);
+        }
+    }
+</script>
+
+<script>
+    function decodeText(encodedText) {
+        let decodedText = "";
+        let asciiValues = encodedText.split(",");
+        for (let i = 0; i < asciiValues.length; i++) {
+            decodedText += String.fromCharCode(parseInt(asciiValues[i]));
+        }
+        return decodedText;
+    }
+
+    function formatText(text) {
+        // 以换行符分割文本
+        const lines = text.split('\n');
+        // 遍历每一行文本
+        for (let i = 0; i < lines.length; i++) {
+            // 如果以"# "开头，则替换为<h3>标记
+            if (lines[i].startsWith('#')) {
+                lines[i] = '<span class="title2"><strong>' + lines[i].substring(2) + '</strong></span>';
+            }
+        }
+        // 重新拼接文本
+        let formattedText = lines.join('\n');
+        // 使用正则表达式替换换行符为<br>
+        formattedText = formattedText.replace(/\n/g, '<br>');
+        // 使用正则表达式替换加粗语法为<span><strong></strong></span>
+        formattedText = formattedText.replace(/\*\*(.*?)\*\*/g, '<span><strong>$1</strong></span>');
+        return formattedText;
+    }
+
+    // 获取当前网页的URL
+    let currentURL = window.location.href;
+    console.log(currentURL);
+    let free_host = 0
+    if(currentURL.indexOf('xsph.ru') !== -1){
+        free_host = 1
+    }
+    if(currentURL.indexOf('angid.eu.org') !== -1){
+        free_host = 1
+    }
+    if(currentURL.indexOf('serv00.net') !== -1){
+        free_host = 1
+    }
+    if(currentURL.indexOf('42web.io') !== -1){
+        free_host = 1
+    }
+    if(currentURL.indexOf(':8080') !== -1){
+        free_host = 1
+    }
+    let json_file = 'news_data.json'
+    if( free_host === 1){
+        json_file = 'server.php?url=https://gitee.com/ai98/vi/raw/master/news_data.json'
+    }
+
+    const timestamp = new Date().getTime();
+    // 使用 JavaScript 读取 JSON 文件
+    fetch(`${json_file}?timestamp=${timestamp}`)
+        .then(response => response.json())
+        .then(data => {
+            // 将 JSON 数据加载到网页中
+            document.getElementById('news').innerHTML = `
+                    <p>${formatText(decodeText(data.news))}</p>
+                `;
+            document.getElementById('burst').innerHTML = `
+                    <p>${formatText(decodeText(data.burst))}</p>
+                `;
+            document.getElementById('hot').innerHTML = `
+                    <p>${formatText(decodeText(data.hot))}</p>
+                `;
+            document.getElementById('policy').innerHTML = `
+                    <p>${formatText(decodeText(data.policy))}</p>
+                `;
+        })
+        .catch(error => console.error('Error loading JSON file:', error));
+
+
+    // 获取所有的链接元素
+    var linksa = document.querySelectorAll('#liList a');
+
+    // 循环遍历每个链接，为它们添加前缀
+    for (var i = 0; i < linksa.length; i++) {
+        var currentLink  = linksa[i];
+        var currenthref = currentLink.getAttribute('href');
+        // 添加前缀
+        if(currenthref !== null  && currenthref.indexOf('news.html') === -1
+            && currenthref.indexOf('index.html') === -1 && currenthref.indexOf('global.html') === -1) {
+            if (free_host === 1) {
+                currentLink.setAttribute('href', 'server.php?url=https://gitee.com/ai98/vi/raw/master/' + currenthref);
+            }
+        }
+    }
+
+</script>
+
+
+
+</body>
+</html>

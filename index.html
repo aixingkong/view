@@ -1,0 +1,190 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Cache-Control" content="max-age=60, must-revalidate">
+    <title>磨剑破茧-index</title>
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <link href="html/default.css" rel="stylesheet" type="text/css" media="all" />
+    <link href="html/fonts.css" rel="stylesheet" type="text/css" media="all" />
+</head>
+<body>
+
+<div id="wrapper">
+    <div id="header-wrapper">
+        <div id="menu" class="container">
+            <ul id="liList">
+                <li><a accesskey="1" onclick="toggleFullScreen()">全屏</a></li>
+                <li><a href="report.xlsx" id="report" accesskey="2" title="">report</a></li>
+                <li><a href="index_score.html" accesskey="3" title="">score</a></li>
+                <li><a href="index_base.html" accesskey="4" title="">base</a></li>
+                <li><a href="index_adv.html" accesskey="5" title="">adv</a></li>
+                <li><a href="index_fut.html" accesskey="6" title="">fut</a></li>
+                <li><a href="index_cn.html#" accesskey="7" title="">rsi_cn</a></li>
+                <li><a href="hk_score.html" accesskey="8" title="">hk_score</a></li>
+                <li><a href="hk_base.html" accesskey="9" title="">hk_base</a></li>
+                <li><a href="hk_adv.html" accesskey="10" title="">hk_adv</a></li>
+                <li><a href="g_ixic_jp225.html" accesskey="11" title="">ixic_jp</a></li>
+                <li><a href="fund_list.xlsx" accesskey="12" title="">fund</a></li>
+                <li><a href="kong_list.xlsx" accesskey="13" title="">stock</a></li>
+                <li><a href="financial.html" accesskey="14" title="">fin</a></li>
+                <li><a href="shadow_sh.html" accesskey="15" title="">shadow_sh</a></li>
+                <li><a href="shadow_sz.html" accesskey="16" title="">shadow_sz</a></li>
+                <li><a href="global.html" accesskey="17" title="">global</a></li>
+                <li><a href="news.html" accesskey="18" title="">news</a></li>
+                <li><a href="news_senti.html" accesskey="19" title="">senti</a></li>
+
+            </ul>
+        </div>
+    </div>
+
+    <div class="slider-container">
+        <div class="slider" id="imgList">
+            <div class="slide">
+                <img src="snap/index_cn.png" alt="Image 1">
+            </div>
+            <div class="slide">
+                <img src="snap/index_score.png" alt="Image 20">
+            </div>
+            <div class="slide">
+                <img src="snap/hk_score.png" alt="Image 21">
+            </div>
+            <div class="slide">
+                <img src="snap/index_base.png" alt="Image 3">
+            </div>
+            <div class="slide">
+                <img src="snap/index_adv.png" alt="Image 4">
+            </div>
+            <div class="slide">
+                <img src="snap/index_fut.png" alt="Image 5">
+            </div>
+            <div class="slide">
+                <img src="snap/hk_base.png" alt="Image 6">
+            </div>
+            <div class="slide">
+                <img src="snap/hk_adv.png" alt="Image 7">
+            </div>
+            <!-- 在这里添加更多的幻灯片 -->
+        </div>
+        <!-- 左右切换按钮 -->
+        <div class="prev" onclick="prevSlide()">❮</div>
+        <div class="next" onclick="nextSlide()">❯</div>
+    </div>
+</div>
+
+    <script>
+        let slideIndex = 0;
+
+        function showSlide(index) {
+            const slides = document.querySelectorAll('.slide');
+            if (index >= slides.length) {
+                slideIndex = 0;
+            }
+            if (index < 0) {
+                slideIndex = slides.length - 1;
+            }
+            const offset = -slideIndex * 100 + '%';
+            document.querySelector('.slider').style.transform = 'translateX(' + offset + ')';
+        }
+
+        function nextSlide() {
+            slideIndex++;
+            showSlide(slideIndex);
+        }
+
+        function prevSlide() {
+            slideIndex--;
+            showSlide(slideIndex);
+        }
+
+        // 初始显示第一张幻灯片
+        showSlide(slideIndex);
+    </script>
+
+    <script>
+        // 获取当前日期
+        const today = new Date();
+        const year = String(today.getFullYear()).slice(-2);
+        const month = String(today.getMonth() + 1).padStart(2, '0'); // 月份从 0 开始，需要加 1
+        // const day = String(today.getDate()).padStart(2, '0');
+        // 构建文件名
+        const filename = `report_${year}${month}.xlsx`;
+        // 获取链接元素
+        const link = document.getElementById('report');
+        // 修改链接的 href 属性
+        link.href = filename;
+    </script>
+
+    <script>
+        function toggleFullScreen() {
+            var doc = window.document;
+            var docEl = doc.documentElement;
+
+            var requestFullScreen = docEl.requestFullscreen || docEl.mozRequestFullScreen || docEl.webkitRequestFullScreen || docEl.msRequestFullscreen;
+            var cancelFullScreen = doc.exitFullscreen || doc.mozCancelFullScreen || doc.webkitExitFullscreen || doc.msExitFullscreen;
+
+            if (!doc.fullscreenElement && !doc.mozFullScreenElement && !doc.webkitFullscreenElement && !doc.msFullscreenElement) {
+                requestFullScreen.call(docEl);
+            } else {
+                cancelFullScreen.call(doc);
+            }
+        }
+    </script>
+
+    <script>
+        // 获取当前网页的URL
+        var currentURL = window.location.href;
+
+        console.log(currentURL);
+        var free_host = 0
+        if(currentURL.indexOf('xsph.ru') !== -1){
+            free_host = 1
+        }
+        if(currentURL.indexOf('angid.eu.org') !== -1){
+            free_host = 1
+        }
+        if(currentURL.indexOf('serv00.net') !== -1){
+            free_host = 1
+        }
+        if(currentURL.indexOf('42web.io') !== -1){
+            free_host = 1
+        }
+        if(currentURL.indexOf(':8080') !== -1){
+            free_host = 1
+        }
+        // 获取所有的链接元素
+        var linksa = document.querySelectorAll('#liList a');
+
+        // 循环遍历每个链接，为它们添加前缀
+        for (var i = 0; i < linksa.length; i++) {
+            var currentLink  = linksa[i];
+            var currenthref = currentLink.getAttribute('href');
+            // 添加例外  && currenthref.indexOf('news.html') === -1
+            if(currenthref !== null  && currenthref.indexOf('news.html') === -1
+                && currenthref.indexOf('index.html') === -1 && currenthref.indexOf('global.html') === -1) {
+                if (free_host === 1) {
+                    currentLink.setAttribute('href', 'server.php?url=https://gitee.com/ai98/vi/raw/master/' + currenthref);
+                }
+            }
+        }
+
+        // 获取所有的链接元素
+        var linksi = document.querySelectorAll('#imgList img');
+
+        // 循环遍历每个链接，为它们添加前缀
+        for (var i = 0; i < linksi.length; i++) {
+            var currentLink  = linksi[i];
+            var currenthref = currentLink.getAttribute('src');
+            // 添加前缀
+            if (free_host === 1) {
+                currentLink.setAttribute('src', 'server.php?url=https://gitee.com/ai98/vi/raw/master/' + currenthref);
+            } else{
+                currentLink.setAttribute('src', './' + currenthref);
+            }
+        }
+
+
+    </script>
+
+</body>
+</html>
